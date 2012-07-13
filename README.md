@@ -6,17 +6,14 @@ Humus PHPUnit Module is a Module for Zend Framework 2 for unit testing.
 Installation
 ------------
 
-put the following in your composer.json in the require section:
-"prolic/humus-php-unit-module": "dev-master"
-
-run
-./composer update
+ 1.  Add `"prolic/humus-phpunit-module": "dev-master"` to your `composer.json`
+ 2.  Run `php composer.phar install`
+ 3.  Enable the module in your `config/application.config.php` by adding `HumusPHPUnitModule` to `modules`
 
 Usage
 -----
 
-    cd vendor/bin
-    ./phpunit
+    ./vendor/bin/phpunit
 
 PHPUnitListener
 -------------------
