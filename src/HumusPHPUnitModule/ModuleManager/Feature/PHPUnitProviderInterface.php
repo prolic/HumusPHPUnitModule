@@ -5,9 +5,9 @@ namespace HumusPHPUnitModule\ModuleManager\Feature;
 interface PHPUnitProviderInterface
 {
     /**
-     * Get the path to the phpunit config
+     * Get the paths to the phpunit configs
      *
-     * @return string
+     * @return array
      */
-    public function getPHPUnitXmlPath();
+    public function getPHPUnitXmlPaths();
 }

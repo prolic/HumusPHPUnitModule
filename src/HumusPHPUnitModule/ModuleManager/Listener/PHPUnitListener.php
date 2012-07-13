@@ -29,7 +29,7 @@ class PHPUnitListener
             return $this;
         }
 
-        $phpUnitXmlPath = $module->getPHPUnitXmlPath();
+        $phpUnitXmlPath = $module->getPHPUnitXmlPaths();
         $this->addPHPUnitXmlPath($e->getModuleName(), $phpUnitXmlPath);
 
         return $this;
@@ -51,7 +51,7 @@ class PHPUnitListener
      * Get phpunit xml paths
      *
      * - key is module name
-     * - value is path
+     * - value is array of paths
      *
      * @return array
      */

@@ -5,15 +5,9 @@ use Zend\ModuleManager\ModuleEvent;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfiguration;
 
-/**
- * This makes our life easier when dealing with paths. Everything is relative
- * to the application root now.
- */
-chdir(dirname(dirname(__DIR__)));
+chdir(__DIR__ . '/../../../../');
 
-// Setup autoloading
 include 'init_autoloader.php';
-
 
 // Run the unit tests
 $configuration = include 'config/application.config.php';
@@ -27,4 +21,13 @@ $moduleManager = $serviceManager->get('ModuleManager');
 $moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE, $phpUnitListener);
 $moduleManager->loadModules();
 
-var_dump($phpUnitListener->getPaths());
+echo "Humus PHPUnit Module for Zend Framework 2\n";
+echo "Author: Sascha-Oliver Prolic\n\n";
+foreach ($phpUnitListener->getPaths() as $module => $paths) {
+    echo 'Testing Module: ' . $module . "\n";
+    foreach ($paths as $path) {
+        passthru('phpunit -c ' . $path);
+    }
+
+}
+echo "\nAll done.";
