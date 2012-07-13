@@ -1,8 +1,8 @@
 {
-    "name": "prolic/humus-php-unit-module",
+    "name": "prolic/humus-phpunit-module",
     "type": "library",
     "description": "PHPUnit Module for Zend Framework 2",
-    "keywords": ["zf2", "phpunit"],
+    "keywords": ["zf2", "phpunit", "humus"],
     "homepage": "https://github.com/prolic/HumusPHPUnitModule",
     "license": "BSD-3-Clause",
     "authors": [
