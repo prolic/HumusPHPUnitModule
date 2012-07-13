@@ -20,5 +20,5 @@
             "HumusPHPUnitModule": "src"
         }
     },
-    "bin": ["bin/phpunit", "bin/phpunit.php"]
+    "bin": ["bin/phpunit"]
 }
