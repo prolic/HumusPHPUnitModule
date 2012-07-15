@@ -18,11 +18,12 @@ Usage
 PHPUnitListener
 -------------------
 
-If you want that on of your modules gets testet by PHPUnit, you have to implement the 
-HumusPHPUnitModule\ModuleManager\Feature\PHPUnitProviderInterface in your Module.php
-You can also provide more then one phpunit.xml file as array.
+There are two ways to configure the PHPUnit Runner.
 
-Sample Module:
+ 1. Implement the HumusPHPUnitModule\ModuleManager\Feature\PHPUnitProviderInterface in your module.
+ 2. Override the phpunit_runner configuration.
+
+1. Sample Module:
 
     namespace MyModule;
     
@@ -37,3 +38,16 @@ Sample Module:
             );
         }
     }
+
+2. Sample Configuration:
+
+    <?php
+    return array(
+        'humus_phpunit_module' => array(
+            'phpunit_runner' => array(
+                'Doctrine\Common' => array(
+                    'vendor/doctrine/common/phpunit.xml.dist'
+                )
+            )
+        )
+    );
