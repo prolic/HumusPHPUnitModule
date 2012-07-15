@@ -4,7 +4,7 @@
     "description": "PHPUnit Module for Zend Framework 2",
     "keywords": ["zf2", "phpunit", "humus"],
     "homepage": "https://github.com/prolic/HumusPHPUnitModule",
-    "license": "BSD-3-Clause",
+    "license": "MIT",
     "authors": [
         {
             "name": "Sascha-Oliver Prolic",
