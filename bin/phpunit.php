@@ -25,7 +25,7 @@ $moduleManager->loadModules();
 
 // get the config
 $config = $moduleManager->getEvent()->getConfigListener()->getMergedConfig();
-$runnerConfig = ArrayUtils::merge($config['humus-phpunit-listener'], $phpUnitListener->getPaths());
+$runnerConfig = ArrayUtils::merge($config['humus_phpunit_module'], $phpUnitListener->getPaths());
 
 // run all tests
 $runner = new Runner($runnerConfig);
