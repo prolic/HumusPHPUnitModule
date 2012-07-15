@@ -1,4 +1,4 @@
 #!/usr/bin/env php
 <?php
 
-include('phpunit.php');
+include('runtests.php');

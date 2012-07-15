@@ -26,7 +26,7 @@ class Runner implements RunnerInterface
         foreach ($this->getTests() as $module => $paths) {
             echo 'Testing Module: ' . $module . "\n";
             foreach ($paths as $path) {
-                passthru('phpunit -c ' . $path);
+                passthru('vendor/bin/phpunit -c ' . $path);
             }
 
         }
