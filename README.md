@@ -3,6 +3,8 @@ Humus PHPUnit Module
 
 Humus PHPUnit Module is a Module for Zend Framework 2 for unit testing.
 
+You can also download and test the Humus PHPUnit Module Sample Application at https://github.com/prolic/HumusPHPUnitModuleSampleApp
+
 Installation
 ------------
 
