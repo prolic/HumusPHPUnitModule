@@ -18,15 +18,12 @@ $serviceManager = new ServiceManager(new ServiceManagerConfiguration($smConfig))
 $serviceManager->setService('ApplicationConfiguration', $configuration);
 
 // load the modules
-$phpUnitListener = new PHPUnitListener;
 $moduleManager = $serviceManager->get('ModuleManager');
-$moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE, $phpUnitListener);
+$moduleEventManager = $moduleManager->getEventManager();
+$phpUnitListener = new PHPUnitListener();
+$phpUnitListener->attach($moduleEventManager);
 $moduleManager->loadModules();
 
-// get the config
-$config = $moduleManager->getEvent()->getConfigListener()->getMergedConfig();
-$runnerConfig = ArrayUtils::merge($config['humus_phpunit_module'], $phpUnitListener->getPaths());
-
 // run all tests
-$runner = new Runner($runnerConfig);
+$runner = $serviceManager->get('HumusPHPUnitModule\Runner');
 $runner->run();
