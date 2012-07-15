@@ -1,33 +1,32 @@
 <?php
 
 use HumusPHPUnitModule\ModuleManager\Listener\PHPUnitListener;
+use HumusPHPUnitModule\Runner;
 use Zend\ModuleManager\ModuleEvent;
-use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfiguration;
+use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ArrayUtils;
 
 chdir(__DIR__ . '/../../../../');
 
 include 'init_autoloader.php';
 
-// Run the unit tests
+// init the application
 $configuration = include 'config/application.config.php';
 $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
 $serviceManager = new ServiceManager(new ServiceManagerConfiguration($smConfig));
 $serviceManager->setService('ApplicationConfiguration', $configuration);
 
+// load the modules
 $phpUnitListener = new PHPUnitListener;
 $moduleManager = $serviceManager->get('ModuleManager');
-/* @var $moduleManager  */
 $moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE, $phpUnitListener);
 $moduleManager->loadModules();
 
-echo "Humus PHPUnit Module for Zend Framework 2\n";
-echo "Author: Sascha-Oliver Prolic\n\n";
-foreach ($phpUnitListener->getPaths() as $module => $paths) {
-    echo 'Testing Module: ' . $module . "\n";
-    foreach ($paths as $path) {
-        passthru('phpunit -c ' . $path);
-    }
+// get the config
+$config = $moduleManager->getEvent()->getConfigListener()->getMergedConfig();
+$runnerConfig = ArrayUtils::merge($config['humus-phpunit-listener'], $phpUnitListener->getPaths());
 
-}
-echo "\nAll done.";
+// run all tests
+$runner = new Runner($runnerConfig);
+$runner->run();
