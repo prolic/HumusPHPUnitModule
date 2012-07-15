@@ -23,7 +23,7 @@ class Module implements ConfigProviderInterface
     {
         return array(
             'factories' => array(
-                'HumusPHPUnitRunner' => function(ServiceLocatorInterface $sl) {
+                'HumusPHPUnitModule\Runner' => function(ServiceLocatorInterface $sl) {
                     $config = $sl->get('Configuration');
                     $phpunitRunnerConfig = $config['humus_phpunit_module']['phpunit_runner'];
                     return new Runner($phpunitRunnerConfig);

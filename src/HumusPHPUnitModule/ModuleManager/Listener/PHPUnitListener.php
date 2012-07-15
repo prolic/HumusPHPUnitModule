@@ -32,8 +32,8 @@ class PHPUnitListener implements ListenerAggregateInterface
      */
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES, $this);
-        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES, array($this, 'onLoadModulesPost'));
+        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, $this);
+        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES_POST, array($this, 'onLoadModulesPost'), 1000);
     }
 
     /**
@@ -81,7 +81,7 @@ class PHPUnitListener implements ListenerAggregateInterface
     public function onLoadModulesPost(ModuleEvent $e)
     {
         $configListener = $e->getConfigListener();
-        $config = $configListener->getMergedConfig();
+        $config = $configListener->getMergedConfig(false);
         $config['humus_phpunit_module']['phpunit_runner'] = ArrayUtils::merge($config['humus_phpunit_module']['phpunit_runner'], $this->getPaths());
         $configListener->setMergedConfig($config);
         return $this;
