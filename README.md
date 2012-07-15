@@ -18,12 +18,15 @@ Usage
 PHPUnitListener
 -------------------
 
-There are two ways to configure the PHPUnit Runner.
+There are two ways to configure the PHPUnit Runner. You can also mix both.
 
  1. Implement the HumusPHPUnitModule\ModuleManager\Feature\PHPUnitProviderInterface in your module.
  2. Override the phpunit_runner configuration.
 
-1. Sample Module:
+Using the PHPUnitProviderInterface
+----------------------------------
+
+Sample module:
 
     namespace MyModule;
     
@@ -39,7 +42,10 @@ There are two ways to configure the PHPUnit Runner.
         }
     }
 
-2. Sample Configuration:
+Using the Configuration
+-----------------------
+
+Sample configuration:
 
     <?php
     return array(
