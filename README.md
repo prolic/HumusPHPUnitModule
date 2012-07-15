@@ -23,7 +23,7 @@ Installation
 Usage
 -----
 
-    ./vendor/bin/phpunit
+    ./vendor/bin/runtests
 
 PHPUnitListener
 -------------------
