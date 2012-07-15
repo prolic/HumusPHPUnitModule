@@ -6,6 +6,7 @@ use HumusPHPUnitModule\ModuleManager\Feature\PHPUnitProviderInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\ModuleManager\ModuleEvent;
+use Zend\Stdlib\ArrayUtils;
 
 class PHPUnitListener implements ListenerAggregateInterface
 {
