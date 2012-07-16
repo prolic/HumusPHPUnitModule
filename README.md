@@ -23,7 +23,7 @@ Installation
 Usage
 -----
 
-    ./vendor/bin/runtests
+    ./vendor/bin/humusphpunit
 
 PHPUnitListener
 -------------------

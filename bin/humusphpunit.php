@@ -17,7 +17,7 @@ $smConfig = isset($configuration['service_manager']) ? $configuration['service_m
 $serviceManager = new ServiceManager(new ServiceManagerConfiguration($smConfig));
 $serviceManager->setService('ApplicationConfiguration', $configuration);
 
-// load the modules
+// load the modules and attach phpunit listener
 $moduleManager = $serviceManager->get('ModuleManager');
 $moduleEventManager = $moduleManager->getEventManager();
 $phpUnitListener = new PHPUnitListener();
