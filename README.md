@@ -16,7 +16,7 @@ Dependencies
 Installation
 ------------
 
- 1.  Add `"prolic/humus-phpunit-module": "dev-master"` to your `composer.json`
+ 1.  Add `"prolic/humus-phpunit-module": "1.*"` to your `composer.json`
  2.  Run `php composer.phar install`
  3.  Enable the module in your `config/application.config.php` by adding `HumusPHPUnitModule` to `modules`
 
