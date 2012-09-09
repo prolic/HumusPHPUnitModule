@@ -8,7 +8,7 @@ You can also download and test the Humus PHPUnit Module Sample Application at ht
 Dependencies
 ------------
 
- -  [ZendFramework 2](https://github.com/zendframework/zf2)
+ -  [ZendFramework 2.x](https://github.com/zendframework/zf2)
  -  Any application similar to the
     [ZendSkeletonApplication](https://github.com/zendframework/ZendSkeletonApplication)
  -  [EHER/PHPUnit](https://github.com/EHER/phpunit-all-in-one)

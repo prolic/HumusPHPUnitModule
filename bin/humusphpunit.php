@@ -15,7 +15,7 @@ include 'init_autoloader.php';
 $configuration = include 'config/application.config.php';
 $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
 $serviceManager = new ServiceManager(new ServiceManagerConfig($smConfig));
-$serviceManager->setService('ApplicationConfiguration', $configuration);
+$serviceManager->setService('ApplicationConfig', $configuration);
 
 // load the modules and attach phpunit listener
 $moduleManager = $serviceManager->get('ModuleManager');
@@ -25,5 +25,5 @@ $phpUnitListener->attach($moduleEventManager);
 $moduleManager->loadModules();
 
 // run all tests
-$runner = $serviceManager->get('HumusPHPUnitModule\Runner');
+$runner = $serviceManager->get('HumusPHPUnitRunner');
 $runner->run();
