@@ -13,8 +13,8 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": ">=2.0.0rc2",
-        "EHER/PHPUnit": ">=1.2"
+        "zendframework/zendframework": "2.*",
+        "EHER/PHPUnit": ">=1.6"
     },
     "autoload": {
         "psr-0": {
