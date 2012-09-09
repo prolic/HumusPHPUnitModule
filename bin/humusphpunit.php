@@ -3,7 +3,7 @@
 use HumusPHPUnitModule\ModuleManager\Listener\PHPUnitListener;
 use HumusPHPUnitModule\Runner;
 use Zend\ModuleManager\ModuleEvent;
-use Zend\Mvc\Service\ServiceManagerConfiguration;
+use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\ArrayUtils;
 
@@ -14,7 +14,7 @@ include 'init_autoloader.php';
 // init the application
 $configuration = include 'config/application.config.php';
 $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
-$serviceManager = new ServiceManager(new ServiceManagerConfiguration($smConfig));
+$serviceManager = new ServiceManager(new ServiceManagerConfig($smConfig));
 $serviceManager->setService('ApplicationConfiguration', $configuration);
 
 // load the modules and attach phpunit listener
