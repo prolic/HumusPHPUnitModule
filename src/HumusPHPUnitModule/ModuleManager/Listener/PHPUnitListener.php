@@ -54,22 +54,21 @@ class PHPUnitListener implements ListenerAggregateInterface
 
     /**
      * @param  ModuleEvent $e
-     * @return PHPUnitListener
+     * @return void
      */
     public function __invoke(ModuleEvent $e)
     {
         $module = $e->getParam('module');
 
         if (!$module instanceof PHPUnitProviderInterface
-            && !is_callable(array($module, 'getPHPUnitXmlPath'))
+            && !method_exists($module, 'getPHPUnitXmlPath')
         ) {
-            return $this;
+            return;
         }
 
         $phpUnitXmlPath = $module->getPHPUnitXmlPaths();
         $this->addPHPUnitXmlPath($e->getModuleName(), $phpUnitXmlPath);
 
-        return $this;
     }
 
     /**

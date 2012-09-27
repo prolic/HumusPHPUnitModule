@@ -1,5 +1,6 @@
 <?php
 
+use HumusMvc\Service\ServiceManagerConfig as HumusServiceManagerConfig;
 use HumusPHPUnitModule\ModuleManager\Listener\PHPUnitListener;
 use HumusPHPUnitModule\Runner;
 use Zend\ModuleManager\ModuleEvent;
@@ -14,7 +15,15 @@ include 'init_autoloader.php';
 // init the application
 $configuration = include 'config/application.config.php';
 $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
-$serviceManager = new ServiceManager(new ServiceManagerConfig($smConfig));
+
+if (class_exists('HumusMvc\Service\ServiceManagerConfig')) {
+    $config = new HumusServiceManagerConfig($smConfig);
+    // only useful with HumusMvc
+} else {
+    // use zf2 with zf2 skeleton app
+    $config = new ServiceManagerConfig($smConfig);
+}
+$serviceManager = new ServiceManager($config);
 $serviceManager->setService('ApplicationConfig', $configuration);
 
 // load the modules and attach phpunit listener
