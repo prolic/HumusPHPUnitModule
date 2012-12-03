@@ -13,8 +13,14 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.*",
-        "EHER/PHPUnit": ">=1.6"
+        "zendframework/zend-mvc": "2.*",
+        "phpunit/phpunit": "3.7.*"
+    },
+    "suggest": {
+        "phpunit/phpunit-story": "Story extension for PHPUnit to facilitate Behaviour-Driven Development.",
+        "phpunit/phpunit-selenium": "Selenium Server integration for PHPUnit",
+        "claylo/selenium-server-standalone": "Composer distribution of Selenium Server Standalone, the browser automation framework.",
+        "phpunit/dbunit": "DbUnit port for PHP/PHPUnit to support database interaction testing."
     },
     "autoload": {
         "psr-0": {

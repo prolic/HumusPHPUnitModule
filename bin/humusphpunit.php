@@ -1,12 +1,8 @@
 <?php
 
 use HumusMvc\Service\ServiceManagerConfig as HumusServiceManagerConfig;
-use HumusPHPUnitModule\ModuleManager\Listener\PHPUnitListener;
-use HumusPHPUnitModule\Runner;
-use Zend\ModuleManager\ModuleEvent;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Stdlib\ArrayUtils;
 
 chdir(__DIR__ . '/../../../../');
 
@@ -26,12 +22,8 @@ if (class_exists('HumusMvc\Service\ServiceManagerConfig')) {
 $serviceManager = new ServiceManager($config);
 $serviceManager->setService('ApplicationConfig', $configuration);
 
-// load the modules and attach phpunit listener
-$moduleManager = $serviceManager->get('ModuleManager');
-$moduleEventManager = $moduleManager->getEventManager();
-$phpUnitListener = new PHPUnitListener();
-$phpUnitListener->attach($moduleEventManager);
-$moduleManager->loadModules();
+$serviceManager->get('ModuleManager')->loadModules();
+$serviceManager->get('Application')->bootstrap();
 
 // run all tests
 $runner = $serviceManager->get('HumusPHPUnitRunner');
