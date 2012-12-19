@@ -11,6 +11,12 @@
             "email": "saschaprolic@googlemail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.zendframework.com/"
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "zendframework/zend-mvc": "2.*",
