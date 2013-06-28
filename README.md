@@ -1,6 +1,8 @@
 Humus PHPUnit Module
 ====================
 
+[![Dependency Status](https://www.versioneye.com/package/php:prolic:humus-phpunit-module/badge.png)](https://www.versioneye.com/package/php:prolic:humus-phpunit-module)
+
 Humus PHPUnit Module is a Module for Zend Framework 2 for unit testing. It is able to test all your zf2 modules and libraries at once.
 
 If you install this module via composer, you will get phpunit installed via composer in your vendor directory, too. You don't have to have a running PHPUnit installation in your system, it will be installed as dependency.
