@@ -4,6 +4,8 @@ namespace HumusPHPUnitModule;
 
 class Runner implements RunnerInterface
 {
+    const CONSOLE_CHAR_LENGTH = 70;
+    
     /**
      * @var array
      */
@@ -22,9 +24,9 @@ class Runner implements RunnerInterface
     public function run()
     {
         echo "Humus PHPUnit Module for Zend Framework 2\n";
-        echo "Author: Sascha-Oliver Prolic\n\n";
+        echo "Author: Sascha-Oliver Prolic\n";
         foreach ($this->getTests() as $module => $paths) {
-            echo 'Testing Module: ' . $module . "\n";
+            echo $this->getModuleOutput($module);
             foreach ($paths as $path) {
                 passthru('vendor/bin/phpunit -c ' . $path);
             }
@@ -43,4 +45,33 @@ class Runner implements RunnerInterface
         return $this->tests;
     }
 
+    /**
+     * Get a beautiful output
+     * 
+     * @param string $module
+     * @return string
+     */
+    private function getModuleOutput($module){
+        $moduleString = 'Testing Module: ' . $module;
+        
+        $spaceLeft = 0;
+        $spaceRight = 0;
+        
+        $length = strlen($moduleString);
+        $lengthLeft = (self::CONSOLE_CHAR_LENGTH - $length - 2) / 2;
+        if($lengthLeft % 2 === 0){
+            //even
+            $spaceLeft = $lengthLeft;
+            $spaceRight = $lengthLeft;
+        } else{
+            $spaceLeft = floor($lengthLeft);
+            $spaceRight = round($lengthLeft, 0);
+        }
+        
+        $output = PHP_EOL . str_repeat('*', self::CONSOLE_CHAR_LENGTH) . PHP_EOL;
+        $output .= '*' . str_repeat(' ', $spaceLeft) . $moduleString . str_repeat(' ', $spaceRight) . '*' . PHP_EOL;
+        $output .= str_repeat('*', self::CONSOLE_CHAR_LENGTH) . PHP_EOL;
+        
+        return $output;
+    }
 }
