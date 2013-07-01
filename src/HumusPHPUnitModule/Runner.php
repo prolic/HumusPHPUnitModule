@@ -28,7 +28,7 @@ class Runner implements RunnerInterface
         foreach ($this->getTests() as $module => $paths) {
             echo $this->getModuleOutput($module);
             foreach ($paths as $path) {
-                passthru('vendor/bin/phpunit -c ' . $path);
+                passthru('vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'phpunit -c ' . $path);
             }
 
         }
@@ -51,7 +51,8 @@ class Runner implements RunnerInterface
      * @param string $module
      * @return string
      */
-    private function getModuleOutput($module){
+    protected function getModuleOutput($module)
+    {
         $moduleString = 'Testing Module: ' . $module;
         
         $spaceLeft = 0;
@@ -59,18 +60,18 @@ class Runner implements RunnerInterface
         
         $length = strlen($moduleString);
         $lengthLeft = (self::CONSOLE_CHAR_LENGTH - $length - 2) / 2;
-        if($lengthLeft % 2 === 0){
+        if ($lengthLeft % 2 === 0) {
             //even
             $spaceLeft = $lengthLeft;
             $spaceRight = $lengthLeft;
-        } else{
+        } else {
             $spaceLeft = floor($lengthLeft);
             $spaceRight = round($lengthLeft, 0);
         }
         
-        $output = PHP_EOL . str_repeat('*', self::CONSOLE_CHAR_LENGTH) . PHP_EOL;
+        $output = PHP_EOL . str_repeat('*', static::CONSOLE_CHAR_LENGTH) . PHP_EOL;
         $output .= '*' . str_repeat(' ', $spaceLeft) . $moduleString . str_repeat(' ', $spaceRight) . '*' . PHP_EOL;
-        $output .= str_repeat('*', self::CONSOLE_CHAR_LENGTH) . PHP_EOL;
+        $output .= str_repeat('*', static::CONSOLE_CHAR_LENGTH) . PHP_EOL;
         
         return $output;
     }
