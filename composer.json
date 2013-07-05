@@ -28,6 +28,11 @@
         "claylo/selenium-server-standalone": "Composer distribution of Selenium Server Standalone, the browser automation framework.",
         "phpunit/dbunit": "DbUnit port for PHP/PHPUnit to support database interaction testing."
     },
+	"extra": {
+        "branch-alias": {
+            "dev-master": "1.2.x-dev"
+        }
+    },
     "autoload": {
         "psr-0": {
             "HumusPHPUnitModule": "src"
