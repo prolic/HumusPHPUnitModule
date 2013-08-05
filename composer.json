@@ -26,7 +26,8 @@
         "phpunit/phpunit-story": "Story extension for PHPUnit to facilitate Behaviour-Driven Development.",
         "phpunit/phpunit-selenium": "Selenium Server integration for PHPUnit",
         "claylo/selenium-server-standalone": "Composer distribution of Selenium Server Standalone, the browser automation framework.",
-        "phpunit/dbunit": "DbUnit port for PHP/PHPUnit to support database interaction testing."
+        "phpunit/dbunit": "DbUnit port for PHP/PHPUnit to support database interaction testing.",
+        "phpmd/phpmd": "PHP Mess Detector"
     },
 	"extra": {
         "branch-alias": {
