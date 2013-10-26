@@ -11,16 +11,13 @@
             "email": "saschaprolic@googlemail.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://packages.zendframework.com/"
-        }
-    ],
     "require": {
         "php": ">=5.3.3",
+        "phpunit/phpunit": "3.7.*",
         "zendframework/zend-mvc": "2.*",
-        "phpunit/phpunit": "3.7.*"
+        "zendframework/zend-console": "2.*",
+        "zendframework/zend-json": "2.*",
+        "zendframework/zend-modulemanager": "2.*"
     },
     "suggest": {
         "phpunit/phpunit-story": "Story extension for PHPUnit to facilitate Behaviour-Driven Development.",
