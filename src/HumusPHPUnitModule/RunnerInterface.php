@@ -18,9 +18,10 @@
 
 namespace HumusPHPUnitModule;
 
+use Zend\Console\Adapter\AdapterInterface as Console;
+
 interface RunnerInterface
 {
-
     /**
      * Runs all unit tests
      *
@@ -28,4 +29,34 @@ interface RunnerInterface
      */
     public function run();
 
+    /**
+     * Get all tests
+     *
+     * @return array
+     */
+    public function getTests();
+
+    /**
+     * Set parameters
+     *
+     * @param array $params
+     */
+    public function setParams(array $params);
+
+    /**
+     * Get parameters
+     *
+     * @return array
+     */
+    public function getParams();
+
+    /**
+     * @param Console $console
+     */
+    public function setConsole(Console $console);
+
+    /**
+     * @return Console
+     */
+    public function getConsole();
 }

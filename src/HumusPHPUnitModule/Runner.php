@@ -18,18 +18,63 @@
 
 namespace HumusPHPUnitModule;
 
+use Zend\Console\Adapter\AdapterInterface as Console;
+use Zend\Console\ColorInterface;
+use Zend\Stdlib\StringUtils;
+use Zend\Text\Table;
+
 class Runner implements RunnerInterface
 {
     const CONSOLE_CHAR_LENGTH = 70;
-    
+
+    /**
+     * @var array
+     */
+    protected $params = array();
+
     /**
      * @var array
      */
     protected $tests;
 
+    /**
+     * @var Console
+     */
+    protected $console;
+
+    /**
+     * @var array
+     */
+    protected $usage;
+
+    /**
+     * Constructor
+     *
+     * @param array $tests
+     */
     public function __construct(array $tests = array())
     {
         $this->tests = $tests;
+    }
+
+    /**
+     * Set parameters
+     *
+     * @param array $params
+     */
+    public function setParams(array $params)
+    {
+        $this->params = $params;
+    }
+
+    /**
+     * Get parameters
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
     }
 
     /**
@@ -39,12 +84,111 @@ class Runner implements RunnerInterface
      */
     public function run()
     {
-        echo "Humus PHPUnit Module for Zend Framework 2\n";
-        echo "Author: Sascha-Oliver Prolic\n";
+        echo $this->getTitle();
+
+        $dir = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
+
+        if (false !== array_search('--version', $this->getParams())) {
+            passthru($dir . 'phpunit --version');
+            echo 'Humus PHPUnit Module ' . Version::VERSION;
+            return;
+        }
+
+        if (false !== array_search('--help', $this->getParams())) {
+            $console = $this->getConsole();
+
+            $usage = $this->getUsage();
+            if (!count($usage)) {
+                return '';
+            }
+
+            echo "\n";
+
+            $result    = '';
+            $table     = false;
+            $tableCols = 0;
+            $tableType = 0;
+
+            if (is_string($usage)) {
+                // It's a plain string - output as is
+                $result .= $usage . "\n";
+                echo $result;
+                return;
+            }
+
+            // It's an array, analyze it
+            foreach ($usage as $a => $b) {
+                /*
+                 * 'invocation method' => 'explanation'
+                 */
+                if (is_string($a) && is_string($b)) {
+                    if (($tableCols !== 2 || $tableType != 1) && $table !== false) {
+                        // render last table
+                        $result .= $this->renderTable($table, $tableCols, $console->getWidth());
+                        $table   = false;
+
+                        // add extra newline for clarity
+                        $result .= "\n";
+                    }
+
+                    // Colorize the command
+                    $a = $console->colorize($a, ColorInterface::GREEN);
+
+                    $tableCols = 2;
+                    $tableType = 1;
+                    $table[]   = array($a, $b);
+                    continue;
+                }
+
+                /*
+                 * array('--param', '--explanation')
+                 */
+                if (is_array($b)) {
+                    if ((count($b) != $tableCols || $tableType != 2) && $table !== false) {
+                        // render last table
+                        $result .= $this->renderTable($table, $tableCols, $console->getWidth());
+                        $table   = false;
+
+                        // add extra newline for clarity
+                        $result .= "\n";
+                    }
+
+                    $tableCols = count($b);
+                    $tableType = 2;
+                    $table[]   = $b;
+                    continue;
+                }
+
+                /*
+                 * 'A single line of text'
+                 */
+                if ($table !== false) {
+                    // render last table
+                    $result .= $this->renderTable($table, $tableCols, $console->getWidth());
+                    $table   = false;
+
+                    // add extra newline for clarity
+                    $result .= "\n";
+                }
+
+                $tableType = 0;
+                $result   .= $b . "\n";
+            }
+
+            // Finish last table
+            if ($table !== false) {
+                $result .= $this->renderTable($table, $tableCols, $console->getWidth());
+            }
+
+            echo $result;
+            return;
+        }
+
         foreach ($this->getTests() as $module => $paths) {
-            echo $this->getModuleOutput($module);
             foreach ($paths as $path) {
-                passthru('vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'phpunit -c ' . $path);
+                echo $this->getModuleOutput($module);
+                $params = join(' ', $this->getParams());
+                passthru($dir . 'phpunit -c ' . $path . ' ' . $params);
             }
 
         }
@@ -61,6 +205,22 @@ class Runner implements RunnerInterface
         return $this->tests;
     }
 
+    protected function getTitle()
+    {
+        $console = $this->getConsole();
+
+        // We prepend the usage by the module name (printed in red), so that each module is
+        // clearly visible by the user
+        $title = sprintf("%s\n%s\n%s\n",
+            str_repeat('-', $console->getWidth()),
+            "Humus PHPUnit Module for Zend Framework 2\n"
+            . "Author: Sascha-Oliver Prolic",
+            str_repeat('-', $console->getWidth())
+        );
+
+        return $console->colorize($title, ColorInterface::RED);
+    }
+
     /**
      * Get a beautiful output
      * 
@@ -69,26 +229,117 @@ class Runner implements RunnerInterface
      */
     protected function getModuleOutput($module)
     {
-        $moduleString = 'Testing Module: ' . $module;
-        
-        $spaceLeft = 0;
-        $spaceRight = 0;
-        
-        $length = strlen($moduleString);
-        $lengthLeft = (self::CONSOLE_CHAR_LENGTH - $length - 2) / 2;
-        if ($lengthLeft % 2 === 0) {
-            //even
-            $spaceLeft = $lengthLeft;
-            $spaceRight = $lengthLeft;
-        } else {
-            $spaceLeft = floor($lengthLeft);
-            $spaceRight = round($lengthLeft, 0);
+        $console = $this->getConsole();
+
+        $head = sprintf("%s\n%s\n%s\n",
+            str_repeat('-', $console->getWidth()),
+            'Testing Module: ' . $module,
+            str_repeat('-', $console->getWidth())
+        );
+
+        return $console->colorize($head, ColorInterface::BLUE);
+    }
+
+    /**
+     * @param Console $console
+     */
+    public function setConsole(Console $console)
+    {
+        $this->console = $console;
+    }
+
+    /**
+     * @return Console
+     */
+    public function getConsole()
+    {
+        return $this->console;
+    }
+
+    public function setUsage($usage)
+    {
+        if (is_array($usage) && !empty($usage)) {
+            $this->usage = $usage;
+        } elseif (is_string($usage) && ($usage != '')) {
+            $this->usage = array($usage);
         }
-        
-        $output = PHP_EOL . str_repeat('*', static::CONSOLE_CHAR_LENGTH) . PHP_EOL;
-        $output .= '*' . str_repeat(' ', $spaceLeft) . $moduleString . str_repeat(' ', $spaceRight) . '*' . PHP_EOL;
-        $output .= str_repeat('*', static::CONSOLE_CHAR_LENGTH) . PHP_EOL;
-        
-        return $output;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsage()
+    {
+        return $this->usage;
+    }
+
+    /**
+     * Render a text table containing the data provided, that will fit inside console window's width.
+     *
+     * @param  $data
+     * @param  $cols
+     * @param  $consoleWidth
+     * @return string
+     */
+    protected function renderTable($data, $cols, $consoleWidth)
+    {
+        $result  = '';
+        $padding = 2;
+
+
+        // If there is only 1 column, just concatenate it
+        if ($cols == 1) {
+            foreach ($data as $row) {
+                $result .= $row[0] . "\n";
+            }
+            return $result;
+        }
+
+        // Get the string wrapper supporting UTF-8 character encoding
+        $strWrapper = StringUtils::getWrapper('UTF-8');
+
+        // Determine max width for each column
+        $maxW = array();
+        for ($x = 1; $x <= $cols; $x += 1) {
+            $maxW[$x] = 0;
+            foreach ($data as $row) {
+                $maxW[$x] = max($maxW[$x], $strWrapper->strlen($row[$x-1]) + $padding * 2);
+            }
+        }
+
+        /*
+         * Check if the sum of x-1 columns fit inside console window width - 10
+         * chars. If columns do not fit inside console window, then we'll just
+         * concatenate them and output as is.
+         */
+        $width = 0;
+        for ($x = 1; $x < $cols; $x += 1) {
+            $width += $maxW[$x];
+        }
+
+        if ($width >= $consoleWidth - 10) {
+            foreach ($data as $row) {
+                $result .= implode("    ", $row) . "\n";
+            }
+            return $result;
+        }
+
+        /*
+         * Use Zend\Text\Table to render the table.
+         * The last column will use the remaining space in console window
+         * (minus 1 character to prevent double wrapping at the edge of the
+         * screen).
+         */
+        $maxW[$cols] = $consoleWidth - $width -1;
+        $table       = new Table\Table();
+        $table->setColumnWidths($maxW);
+        $table->setDecorator(new Table\Decorator\Blank());
+        $table->setPadding(2);
+
+        foreach ($data as $row) {
+            $table->appendRow($row);
+        }
+
+        return $table->render();
     }
 }
