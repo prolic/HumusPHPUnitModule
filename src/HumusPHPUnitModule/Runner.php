@@ -25,8 +25,6 @@ use Zend\Text\Table;
 
 class Runner implements RunnerInterface
 {
-    const CONSOLE_CHAR_LENGTH = 70;
-
     /**
      * @var array
      */

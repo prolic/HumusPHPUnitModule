@@ -60,15 +60,8 @@ class IndexController extends AbstractActionController
         }
 
 
-        //$runner = $this->getRunner();
-        $runner = new Runner(array(
-            'PHPUnit' => array('/home/sasa/code/zf2app/vendor/phpunit/phpunit/phpunit.xml.dist')
-        ));
+        $runner = $this->runner;
         $runner->setParams($params);
-        $runner->setConsole($this->getServiceLocator()->get('console'));
-
-        $module = $this->getServiceLocator()->get('HumusPHPUnitModule\Module');
-        $runner->setUsage($module->getConsoleUsage($this->getServiceLocator()->get('console')));
         $runner->run();
     }
 
@@ -80,15 +73,5 @@ class IndexController extends AbstractActionController
     public function setRunner(RunnerInterface $runner)
     {
         $this->runner = $runner;
-    }
-
-    /**
-     * Get runner
-     *
-     * @return RunnerInterface
-     */
-    public function getRunner()
-    {
-        return $this->runner;
     }
 }
