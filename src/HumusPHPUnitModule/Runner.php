@@ -56,26 +56,6 @@ class Runner implements RunnerInterface
     }
 
     /**
-     * Set parameters
-     *
-     * @param array $params
-     */
-    public function setParams(array $params)
-    {
-        $this->params = $params;
-    }
-
-    /**
-     * Get parameters
-     *
-     * @return array
-     */
-    public function getParams()
-    {
-        return $this->params;
-    }
-
-    /**
      * Runs all unit tests
      *
      * @return void
@@ -86,16 +66,16 @@ class Runner implements RunnerInterface
 
         $dir = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
 
-        if (false !== array_search('--version', $this->getParams())) {
+        if (false !== array_search('--version', $this->params)) {
             passthru($dir . 'phpunit --version');
             echo 'Humus PHPUnit Module ' . Version::VERSION;
             return;
         }
 
-        if (false !== array_search('--help', $this->getParams())) {
-            $console = $this->getConsole();
+        if (false !== array_search('--help', $this->params)) {
+            $console = $this->console;
 
-            $usage = $this->getUsage();
+            $usage = $this->usage;
             if (!count($usage)) {
                 return '';
             }
@@ -182,10 +162,10 @@ class Runner implements RunnerInterface
             return;
         }
 
-        foreach ($this->getTests() as $module => $paths) {
+        foreach ($this->tests as $module => $paths) {
             foreach ($paths as $path) {
                 echo $this->getModuleOutput($module);
-                $params = join(' ', $this->getParams());
+                $params = join(' ', $this->params);
                 passthru($dir . 'phpunit -c ' . $path . ' ' . $params);
             }
 
@@ -194,48 +174,13 @@ class Runner implements RunnerInterface
     }
 
     /**
-     * Get all tests
+     * Set parameters
      *
-     * @return array
+     * @param array $params
      */
-    public function getTests()
+    public function setParams(array $params)
     {
-        return $this->tests;
-    }
-
-    protected function getTitle()
-    {
-        $console = $this->getConsole();
-
-        // We prepend the usage by the module name (printed in red), so that each module is
-        // clearly visible by the user
-        $title = sprintf("%s\n%s\n%s\n",
-            str_repeat('-', $console->getWidth()),
-            "Humus PHPUnit Module for Zend Framework 2\n"
-            . "Author: Sascha-Oliver Prolic",
-            str_repeat('-', $console->getWidth())
-        );
-
-        return $console->colorize($title, ColorInterface::RED);
-    }
-
-    /**
-     * Get a beautiful output
-     * 
-     * @param string $module
-     * @return string
-     */
-    protected function getModuleOutput($module)
-    {
-        $console = $this->getConsole();
-
-        $head = sprintf("%s\n%s\n%s\n",
-            str_repeat('-', $console->getWidth()),
-            'Testing Module: ' . $module,
-            str_repeat('-', $console->getWidth())
-        );
-
-        return $console->colorize($head, ColorInterface::BLUE);
+        $this->params = $params;
     }
 
     /**
@@ -247,13 +192,10 @@ class Runner implements RunnerInterface
     }
 
     /**
-     * @return Console
+     * Set usage
+     *
+     * @param string|array $usage
      */
-    public function getConsole()
-    {
-        return $this->console;
-    }
-
     public function setUsage($usage)
     {
         if (is_array($usage) && !empty($usage)) {
@@ -264,11 +206,41 @@ class Runner implements RunnerInterface
     }
 
     /**
-     * @return mixed
+     * Get title
+     *
+     * @return string
      */
-    public function getUsage()
+    protected function getTitle()
     {
-        return $this->usage;
+        $console = $this->console;
+
+        $title = sprintf("%s\n%s\n%s\n",
+            str_repeat('-', $console->getWidth()),
+            "Humus PHPUnit Module for Zend Framework 2\n"
+            . "Author: Sascha-Oliver Prolic",
+            str_repeat('-', $console->getWidth())
+        );
+
+        return $console->colorize($title, ColorInterface::RED);
+    }
+
+    /**
+     * Get module output
+     * 
+     * @param string $module
+     * @return string
+     */
+    protected function getModuleOutput($module)
+    {
+        $console = $this->console;
+
+        $head = sprintf("%s\n%s\n%s\n",
+            str_repeat('-', $console->getWidth()),
+            'Testing Module: ' . $module,
+            str_repeat('-', $console->getWidth())
+        );
+
+        return $console->colorize($head, ColorInterface::BLUE);
     }
 
     /**
