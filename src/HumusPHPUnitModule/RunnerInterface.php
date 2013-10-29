@@ -20,7 +20,6 @@ namespace HumusPHPUnitModule;
 
 interface RunnerInterface
 {
-
     /**
      * Runs all unit tests
      *
@@ -28,4 +27,28 @@ interface RunnerInterface
      */
     public function run();
 
+    /**
+     * Set tests
+     *
+     * key = module name
+     * value = array of paths to phpunit.xml files
+     *
+     * e.g.
+     *
+     * $tests = array(
+     *     'Doctrine\Common' => array(
+     *         'vendor/doctrine/common/phpunit.xml.dist'
+     *     )
+     * )
+     *
+     * @param array $tests
+     */
+    public function setTests(array $tests);
+
+    /**
+     * Set parameters
+     *
+     * @param array $params
+     */
+    public function setParams(array $params);
 }

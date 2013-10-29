@@ -18,31 +18,19 @@
 
 namespace HumusPHPUnitModule\Service;
 
-use HumusPHPUnitModule\Runner;
+use HumusPHPUnitModule\Controller\IndexController;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class RunnerFactory implements FactoryInterface
+class ControllerFactory implements FactoryInterface
 {
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return Runner
-     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $runner = new Runner();
-
-        $config = $serviceLocator->get('Config');
-        $tests = $config['humus_phpunit_module']['phpunit_runner'];
-        $runner->setTests($tests);
-
-        $console = $serviceLocator->get('console');
-        $runner->setConsole($console);
-
-        $module = $serviceLocator->get('HumusPHPUnitModule\Module');
-        $usage = $module->getConsoleUsage($console);
-        $runner->setUsage($usage);
-
-        return $runner;
+        /* @var $serviceLocator \Zend\Mvc\Controller\ControllerManager */
+        $sm = $serviceLocator->getServiceLocator();
+        $runner = $sm->get('HumusPHPUnitRunner');
+        $controller = new IndexController();
+        $controller->setRunner($runner);
+        return $controller;
     }
 }

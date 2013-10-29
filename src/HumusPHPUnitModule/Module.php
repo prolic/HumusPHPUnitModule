@@ -18,9 +18,13 @@
 
 namespace HumusPHPUnitModule;
 
+use Zend\Console\Adapter\AdapterInterface as Console;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\LocatorRegisteredInterface;
 
-class Module implements ConfigProviderInterface
+
+class Module implements AutoloaderProviderInterface, ConfigProviderInterface, LocatorRegisteredInterface
 {
     /**
      * {@inheritDoc}
@@ -30,4 +34,53 @@ class Module implements ConfigProviderInterface
         return include __DIR__ . '/../../config/module.config.php';
     }
 
+    /**
+     * @param Console $console
+     * @return array
+     */
+    public function getConsoleUsage(Console $console)
+    {
+        return array(
+            // Describe available commands
+            'humusphpunit [switches]'    => 'runs humusphpunit',
+
+            // Describe expected parameters
+            array(
+                '--strict',
+                'Run tests in strict mode.'
+            ),
+            array(
+                '--verbose|-v',
+                'Output more verbose information.'
+            ),
+            array(
+                '--debug',
+                'Display debugging information during test execution.'
+            ),
+            array(
+                '--help|-h',
+                'Prints thhe usage information.'
+            ),
+            array(
+                '--version',
+                'Prints the version and exits.'
+            ),
+        );
+    }
+
+    /**
+     * Return an array for passing to Zend\Loader\AutoloaderFactory.
+     *
+     * @return array
+     */
+    public function getAutoloaderConfig()
+    {
+        return array(
+            'Zend\Loader\StandardAutoloader' => array(
+                'namespaces' => array(
+                    __NAMESPACE__ => __DIR__
+                ),
+            ),
+        );
+    }
 }
