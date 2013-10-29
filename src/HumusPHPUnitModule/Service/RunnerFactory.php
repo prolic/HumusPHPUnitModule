@@ -24,12 +24,17 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class RunnerFactory implements FactoryInterface
 {
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return Runner
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('Config');
-        $phpunitRunnerConfig = $config['humus_phpunit_module']['phpunit_runner'];
+        $runner = new Runner();
 
-        $runner = new Runner($phpunitRunnerConfig);
+        $config = $serviceLocator->get('Config');
+        $tests = $config['humus_phpunit_module']['phpunit_runner'];
+        $runner->setTests($tests);
 
         $console = $serviceLocator->get('console');
         $runner->setConsole($console);
@@ -37,6 +42,7 @@ class RunnerFactory implements FactoryInterface
         $module = $serviceLocator->get('HumusPHPUnitModule\Module');
         $usage = $module->getConsoleUsage($console);
         $runner->setUsage($usage);
+
         return $runner;
     }
 }

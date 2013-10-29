@@ -46,11 +46,11 @@ class Runner implements RunnerInterface
     protected $usage;
 
     /**
-     * Constructor
+     * Set tests
      *
      * @param array $tests
      */
-    public function __construct(array $tests = array())
+    public function setTests(array $tests)
     {
         $this->tests = $tests;
     }

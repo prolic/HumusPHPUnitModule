@@ -18,8 +18,6 @@
 
 namespace HumusPHPUnitModule;
 
-use Zend\Console\Adapter\AdapterInterface as Console;
-
 interface RunnerInterface
 {
     /**
@@ -30,11 +28,22 @@ interface RunnerInterface
     public function run();
 
     /**
-     * Get all tests
+     * Set tests
      *
-     * @return array
+     * key = module name
+     * value = array of paths to phpunit.xml files
+     *
+     * e.g.
+     *
+     * $tests = array(
+     *     'Doctrine\Common' => array(
+     *         'vendor/doctrine/common/phpunit.xml.dist'
+     *     )
+     * )
+     *
+     * @param array $tests
      */
-    public function getTests();
+    public function setTests(array $tests);
 
     /**
      * Set parameters
@@ -42,21 +51,4 @@ interface RunnerInterface
      * @param array $params
      */
     public function setParams(array $params);
-
-    /**
-     * Get parameters
-     *
-     * @return array
-     */
-    public function getParams();
-
-    /**
-     * @param Console $console
-     */
-    public function setConsole(Console $console);
-
-    /**
-     * @return Console
-     */
-    public function getConsole();
 }
