@@ -57,7 +57,7 @@ final class Version
     /**
      * Fetches the version of the latest stable release.
      *
-     * It will use the GitHub API (v3) and only returns refs that begin with 'tags/v'.
+     * It will use the GitHub API (v3) and only returns refs that begin with 'tags/'.
      * Because GitHub returns the refs in alphabetical order, we need to reduce
      * the array to a single value, comparing the version numbers with
      * version_compare().
@@ -70,7 +70,7 @@ final class Version
     {
         if (null === static::$latestVersion) {
             static::$latestVersion = 'not available';
-            $url  = 'https://api.github.com/repos/prolic/HumusPHPUnitModule/git/refs/tags/v';
+            $url  = 'https://api.github.com/repos/prolic/HumusPHPUnitModule/git/refs/tags/';
 
             $apiResponse = Json::decode(file_get_contents($url), Json::TYPE_ARRAY);
 
