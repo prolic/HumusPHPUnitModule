@@ -1,4 +1,2 @@
-#!/usr/bin/env php
-<?php
-
-include('../../public/index.php');
+#!/bin/bash
+/usr/bin/env php ../../public/index.php humusphpunit "$@"
