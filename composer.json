@@ -20,6 +20,11 @@
         "zendframework/zend-modulemanager": "2.*",
         "zendframework/zend-text": "2.*"
     },
+    "require-dev": {
+        "phpunit/PHPUnit": "3.7.*",
+        "satooshi/php-coveralls": "dev-master",
+        "sebastianbergmann/phpcov": "1.1.0"
+    },
     "suggest": {
         "phpunit/phpunit-story": "Story extension for PHPUnit to facilitate Behaviour-Driven Development.",
         "phpunit/phpunit-selenium": "Selenium Server integration for PHPUnit",
