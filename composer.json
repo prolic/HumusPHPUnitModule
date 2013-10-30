@@ -22,6 +22,7 @@
     },
     "require-dev": {
         "phpunit/PHPUnit": "3.7.*",
+        "squizlabs/php_codesniffer": "1.4.*",
         "satooshi/php-coveralls": "dev-master",
         "sebastianbergmann/phpcov": "1.1.0"
     },
