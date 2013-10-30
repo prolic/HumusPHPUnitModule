@@ -34,7 +34,11 @@ Dependencies
 ------------
 
  - PHP 5.3.3
+ - [Zend Console (from ZF2)](https://github.com/zendframework/zf2)
+ - [Zend Json (from ZF2)](https://github.com/zendframework/zf2)
+ - [Zend ModuleManager (from ZF2)](https://github.com/zendframework/zf2)
  - [Zend MVC (from ZF2)](https://github.com/zendframework/zf2)
+ - [Zend Text (from ZF2)](https://github.com/zendframework/zf2)
  -  Any application similar to the
     [ZendSkeletonApplication](https://github.com/zendframework/ZendSkeletonApplication) or
     [HumusMvcSkeletonApplication](https://github.com/prolic/HumusMvcSkeletonApplication)
@@ -58,7 +62,19 @@ Installation
 Usage
 -----
 
+    php public/index.php humusphpunit
+
+or
+
     ./vendor/bin/humusphpunit
+
+get help
+
+    php public/index.php humusphpunit --help
+
+or
+
+    php public/index.php
 
 Configuration
 -------------
