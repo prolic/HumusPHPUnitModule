@@ -23,7 +23,6 @@ use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\LocatorRegisteredInterface;
 
-
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface, LocatorRegisteredInterface
 {
     /**
