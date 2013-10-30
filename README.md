@@ -1,10 +1,12 @@
 Humus PHPUnit Module
 ====================
 
-[![Dependency Status](https://www.versioneye.com/package/php:prolic:humus-phpunit-module/badge.png)](https://www.versioneye.com/package/php:prolic:humus-phpunit-module)
+[![Build Status](https://travis-ci.org/prolic/HumusPHPUnitModule.png?branch=master)](https://travis-ci.org/prolic/HumusPHPUnitModule)
+[![Coverage Status](https://coveralls.io/repos/prolic/HumusPHPUnitModule/badge.png?branch=master)](https://coveralls.io/r/prolic/HumusPHPUnitModule?branch=master)
 [![Total Downloads](https://poser.pugx.org/prolic/humus-phpunit-module/downloads.png)](https://packagist.org/packages/prolic/humus-phpunit-module)
 [![Latest Stable Version](https://poser.pugx.org/prolic/humus-phpunit-module/v/stable.png)](https://packagist.org/packages/prolic/humus-phpunit-module)
 [![Latest Unstable Version](https://poser.pugx.org/prolic/humus-phpunit-module/v/unstable.png)](https://packagist.org/packages/prolic/humus-phpunit-module)
+[![Dependency Status](https://www.versioneye.com/package/php:prolic:humus-phpunit-module/badge.png)](https://www.versioneye.com/package/php:prolic:humus-phpunit-module)
 
 Humus PHPUnit Module is a Module for Zend Framework 2 for unit testing. It is able to test all your zf2 modules and libraries at once.
 
