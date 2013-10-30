@@ -12,6 +12,17 @@ If you install this module via composer, you will get phpunit installed via comp
 
 You can also download and test the Humus PHPUnit Module Sample Application at https://github.com/prolic/HumusPHPUnitModuleSampleApp
 
+UPDATES IN 1.2.0
+----------------
+
+ - Full ZF2 cli integration:
+   You can start humusphpunit with "php public/index.php humusphpunit"
+   The old way of "vendor/bin/humusphpunit" still works
+ - Support for passing parameters to phpunit like: "--strict", "--debug", "--version", and so on.
+ - Get list of available options with: "php public/index.php" or "php public/index.php humusphpunit --help"
+ - Colorized output in console
+ - Test coverage
+
 UPDATES IN 1.1.0
 ----------------
 
