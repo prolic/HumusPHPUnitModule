@@ -28,11 +28,14 @@ class VersionTest extends \PHPUnit_Framework_TestCase
      */
     public function testVersionCompare()
     {
+        $prefixes =  array(
+            'dev', 'pr', 'PR', 'alpha', 'a1', 'a2', 'beta', 'b1', 'b2', 'RC', 'RC1', 'RC2', 'RC3', '', 'pl1', 'PL1'
+        );
         $expect = -1;
         for ($i=0; $i < 2; $i++) {
             for ($j=0; $j < 12; $j++) {
                 for ($k=0; $k < 20; $k++) {
-                    foreach (array('dev', 'pr', 'PR', 'alpha', 'a1', 'a2', 'beta', 'b1', 'b2', 'RC', 'RC1', 'RC2', 'RC3', '', 'pl1', 'PL1') as $rel) {
+                    foreach ($prefixes as $rel) {
                         $ver = "$i.$j.$k$rel";
                         $normalizedVersion = strtolower(Version::VERSION);
                         if (strtolower($ver) === $normalizedVersion
@@ -49,7 +52,8 @@ class VersionTest extends \PHPUnit_Framework_TestCase
                                 $expect,
                                 "For version '$ver' and HumusPHPUnitModule\\Version::VERSION = '"
                                 . Version::VERSION . "': result=" . (Version::compareVersion($ver))
-                                . ', but expected ' . $expect);
+                                . ', but expected ' . $expect
+                            );
                         }
                     }
                 }
