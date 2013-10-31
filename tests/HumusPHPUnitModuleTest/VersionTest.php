@@ -71,4 +71,19 @@ class VersionTest extends \PHPUnit_Framework_TestCase
         $actual = Version::getLatest();
         $this->assertRegExp('/^[1-2](\.[0-9]+){2}/', $actual);
     }
+
+    /**
+     * Run in separate process to avoid Version::$latestParameter caching
+     *
+     * @runInSeparateProcess
+     */
+    public function testIsLatest()
+    {
+        if (!extension_loaded('openssl')) {
+            $this->markTestSkipped('This test requires openssl extension to be enabled in PHP');
+        }
+
+        $latest = Version::isLatest();
+        $this->assertInternalType('bool', $latest);
+    }
 }

@@ -76,7 +76,7 @@ final class Version
 
             // Simplify the API response into a simple array of version numbers
             $tags = array_map(function ($tag) {
-                return substr($tag['ref'], 18); // Reliable because we're filtering on 'refs/tags/release-'
+                return substr($tag['ref'], 10); // Reliable because we're filtering on 'refs/tags/'
             }, $apiResponse);
 
             // Fetch the latest version number from the array
