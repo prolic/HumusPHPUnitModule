@@ -63,7 +63,7 @@ final class Version
      * version_compare().
      *
      * @see http://developer.github.com/v3/git/refs/#get-all-references
-     * @link https://api.github.com/repos/prolic/HumusPHPUnitModule/git/refs/tags/v
+     * @link https://api.github.com/repos/prolic/HumusPHPUnitModule/git/refs/tags/
      * @return string
      */
     public static function getLatest()
