@@ -18,12 +18,8 @@
 
 namespace HumusPHPUnitModule\Controller;
 
-use HumusPHPUnitModule\Module;
-use HumusPHPUnitModule\Runner;
 use HumusPHPUnitModule\RunnerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
-
-use Zend\Console\Request as ConsoleRequest;
 
 class IndexController extends AbstractActionController
 {
