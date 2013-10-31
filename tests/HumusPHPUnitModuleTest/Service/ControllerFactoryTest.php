@@ -39,8 +39,8 @@ class ControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $prop = new \ReflectionProperty(get_class($controller), 'runner');
         $prop->setAccessible(true);
-        $value = $prop->getValue($controller);
+        $runner = $prop->getValue($controller);
 
-        $this->assertSame($value, $controller);
+        $this->assertInstanceOf('HumusPHPUnitModule\RunnerInterface', $runner);
     }
 }
