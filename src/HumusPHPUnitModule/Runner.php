@@ -214,11 +214,18 @@ class Runner implements RunnerInterface
     {
         $console = $this->console;
 
-        $title = sprintf("%s\n%s\n%s\n",
-            str_repeat('-', $console->getWidth()),
+        $title = sprintf(
+            "%s\n%s\n%s\n",
+            str_repeat(
+                '-',
+                $console->getWidth()
+            ),
             "Humus PHPUnit Module for Zend Framework 2\n"
             . "Author: Sascha-Oliver Prolic",
-            str_repeat('-', $console->getWidth())
+            str_repeat(
+                '-',
+                $console->getWidth()
+            )
         );
 
         return $console->colorize($title, ColorInterface::RED);
@@ -234,10 +241,17 @@ class Runner implements RunnerInterface
     {
         $console = $this->console;
 
-        $head = sprintf("%s\n%s\n%s\n",
-            str_repeat('-', $console->getWidth()),
+        $head = sprintf(
+            "%s\n%s\n%s\n",
+            str_repeat(
+                '-',
+                $console->getWidth()
+            ),
             'Testing Module: ' . $module,
-            str_repeat('-', $console->getWidth())
+            str_repeat(
+                '-',
+                $console->getWidth()
+            )
         );
 
         return $console->colorize($head, ColorInterface::BLUE);
