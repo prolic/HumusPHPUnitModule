@@ -32,6 +32,7 @@ class IndexController extends AbstractActionController
     {
         $request = $this->getRequest();
 
+        $colors  = $request->getParam('colors');
         $strict  = $request->getParam('strict');
         $verbose = $request->getParam('verbose') || $request->getParam('v');
         $debug   = $request->getParam('debug');
@@ -39,6 +40,9 @@ class IndexController extends AbstractActionController
         $version = $request->getParam('version');
 
         $params = array();
+        if ($colors) {
+            $params[] = '--colors';
+        }
         if ($strict) {
             $params[] = '--strict';
         }

@@ -45,6 +45,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Lo
 
             // Describe expected parameters
             array(
+                '--colors',
+                'Use colors in output.'
+            ),
+            array(
                 '--strict',
                 'Run tests in strict mode.'
             ),
