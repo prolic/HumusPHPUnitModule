@@ -49,6 +49,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Lo
                 'Use colors in output.'
             ),
             array(
+                '--stderr',
+                'Write to STDERR instead of STDOUT.'
+            ),
+            array(
                 '--strict',
                 'Run tests in strict mode.'
             ),
