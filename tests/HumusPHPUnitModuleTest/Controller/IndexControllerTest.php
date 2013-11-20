@@ -71,9 +71,9 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
     public function testRunActionWithParams()
     {
         $params = array(
-            '--strict',
-            '--verbose',
-            '--debug'
+            'strict' => true,
+            'verbose' => true,
+            'debug' => true
         );
         $runner = $this->getMockForAbstractClass('HumusPHPUnitModule\RunnerInterface');
         $runner
