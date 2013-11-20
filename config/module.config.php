@@ -19,7 +19,7 @@ return array(
             'routes' => array(
                 'humusphpunit' => array(
                     'options' => array(
-                        'route'    => 'humusphpunit [--modules=] [--colors] [--stderr] [--strict] [--verbose|-v] [--debug] [--process-isolation] [--no-globals-backup] [--help|-h] [--version]',
+                        'route'    => 'humusphpunit [--modules=] [--colors] [--stderr] [--strict] [--verbose|-v] [--debug] [--process-isolation] [--no-globals-backup] [--static-backup] [--help|-h] [--version]',
                         'defaults' => array(
                             'controller' => 'HumusPHPUnitController',
                             'action'     => 'run'

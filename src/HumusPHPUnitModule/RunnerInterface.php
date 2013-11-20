@@ -21,7 +21,7 @@ namespace HumusPHPUnitModule;
 interface RunnerInterface
 {
     /**
-     * Runs all unit tests
+     * Runs all tests and sets the exit code
      *
      * @return string the output
      */

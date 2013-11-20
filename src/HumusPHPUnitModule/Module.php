@@ -77,6 +77,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Lo
                 'Do not backup and restore $GLOBALS for each test.'
             ),
             array(
+                '--static-backup',
+                'Backup and restore static attributes for each test.'
+            ),
+            array(
                 '--help|-h',
                 'Prints thhe usage information.'
             ),

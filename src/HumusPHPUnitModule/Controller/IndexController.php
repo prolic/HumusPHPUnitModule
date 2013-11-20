@@ -28,41 +28,28 @@ class IndexController extends AbstractActionController
      */
     protected $runner;
 
+    /**
+     * @var array
+     */
     protected $paramsToTest = array(
-        array(
-            'modules'
-        ),
-        array(
-            'colors'
-        ),
-        array(
-            'stderr'
-        ),
-        array(
-            'strict'
-        ),
-        array(
-            'verbose',
-            'v'
-        ),
-        array(
-            'debug'
-        ),
-        array(
-            'process-isolation'
-        ),
-        array(
-            'no-globals-backup'
-        ),
-        array(
-            'help',
-            'h'
-        ),
-        array(
-            'version'
-        )
+        array('modules'),
+        array('colors'),
+        array('stderr'),
+        array('strict'),
+        array('verbose', 'v'),
+        array('debug'),
+        array('process-isolation'),
+        array('no-globals-backup'),
+        array('static-backup'),
+        array('help', 'h'),
+        array('version')
     );
 
+    /**
+     * Runs all tests and sets the exit code
+     *
+     * @return \Zend\Console\Response|\Zend\Stdlib\ResponseInterface
+     */
     public function runAction()
     {
         $request = $this->getRequest();
