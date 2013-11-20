@@ -52,6 +52,9 @@ class IndexController extends AbstractActionController
             'process-isolation'
         ),
         array(
+            'no-globals-backup'
+        ),
+        array(
             'help',
             'h'
         ),

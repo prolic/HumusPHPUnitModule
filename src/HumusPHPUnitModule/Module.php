@@ -73,6 +73,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Lo
                 'Run each test in a separate PHP process.'
             ),
             array(
+                '--no-globals-backup',
+                'Do not backup and restore $GLOBALS for each test.'
+            ),
+            array(
                 '--help|-h',
                 'Prints thhe usage information.'
             ),
