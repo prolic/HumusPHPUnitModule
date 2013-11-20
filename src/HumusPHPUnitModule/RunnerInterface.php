@@ -23,9 +23,16 @@ interface RunnerInterface
     /**
      * Runs all unit tests
      *
-     * @return void
+     * @return string the output
      */
     public function run();
+
+    /**
+     * Get the exit code after running the tests
+     *
+     * @return int
+     */
+    public function getExitCode();
 
     /**
      * Set tests

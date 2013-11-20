@@ -45,6 +45,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Lo
 
             // Describe expected parameters
             array(
+                '--modules=<comma separated list of modules>',
+                'Specify modules to test, e.g. --modules=Foo,Bar,Baz will only test these three modules'
+            ),
+            array(
                 '--colors',
                 'Use colors in output.'
             ),

@@ -26,6 +26,11 @@ use Zend\Text\Table;
 class Runner implements RunnerInterface
 {
     /**
+     * @var int
+     */
+    protected $exitCode = 0;
+
+    /**
      * @var array
      */
     protected $params = array();
@@ -58,18 +63,19 @@ class Runner implements RunnerInterface
     /**
      * Runs all unit tests
      *
-     * @return void
+     * @return string the output
      */
     public function run()
     {
-        echo $this->getTitle();
+        $result = '';
+        $result .= $this->getTitle();
 
-        $dir = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
+        $dir = getcwd() . '/vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
 
         if (false !== array_search('--version', $this->params)) {
             passthru($dir . 'phpunit --version');
-            echo 'Humus PHPUnit Module ' . Version::VERSION;
-            return;
+            $result .= 'Humus PHPUnit Module ' . Version::VERSION;
+            return $result;
         }
 
         if (false !== array_search('--help', $this->params)) {
@@ -77,12 +83,11 @@ class Runner implements RunnerInterface
 
             $usage = $this->usage;
             if (!count($usage)) {
-                return '';
+                return $result;
             }
 
-            echo "\n";
+            $result .= "\n";
 
-            $result    = '';
             $table     = false;
             $tableCols = 0;
             $tableType = 0;
@@ -90,8 +95,7 @@ class Runner implements RunnerInterface
             if (is_string($usage)) {
                 // It's a plain string - output as is
                 $result .= $usage . "\n";
-                echo $result;
-                return;
+                return $result;
             }
 
             // It's an array, analyze it
@@ -158,19 +162,42 @@ class Runner implements RunnerInterface
                 $result .= $this->renderTable($table, $tableCols, $console->getWidth());
             }
 
-            echo $result;
-            return;
+            return $result;
         }
 
         foreach ($this->tests as $module => $paths) {
+            if (isset($this->params['modules'])) {
+                $modules = explode(',', $this->params['modules']);
+                if (!in_array($module, $modules)) {
+                    continue;
+                }
+            }
             foreach ($paths as $path) {
-                echo $this->getModuleOutput($module);
+                $result .= $this->getModuleOutput($module);
                 $params = join(' ', $this->params);
-                passthru($dir . 'phpunit -c ' . $path . ' ' . $params);
+                $returnVar = null;
+                ob_start();
+                passthru($dir . 'phpunit -c ' . $path . ' ' . $params, $returnVar);
+                $result .= ob_get_contents();
+                ob_clean();
+                if ($this->exitCode == 0) {
+                    $this->exitCode = $returnVar;
+                }
             }
 
         }
-        echo "\nAll done.";
+        $result .= "\nAll done.";
+        return $result;
+    }
+
+    /**
+     * Get the exit code after running the tests
+     *
+     * @return int
+     */
+    public function getExitCode()
+    {
+        return $this->exitCode;
     }
 
     /**

@@ -28,45 +28,60 @@ class IndexController extends AbstractActionController
      */
     protected $runner;
 
+    protected $paramsToTest = array(
+        array(
+            'modules'
+        ),
+        array(
+            'colors'
+        ),
+        array(
+            'stderr'
+        ),
+        array(
+            'strict'
+        ),
+        array(
+            'verbose',
+            'v'
+        ),
+        array(
+            'debug'
+        ),
+        array(
+            'help',
+            'h'
+        ),
+        array(
+            'version'
+        )
+    );
+
     public function runAction()
     {
         $request = $this->getRequest();
+        /* @var $request \Zend\Console\Request */
 
-        $colors  = $request->getParam('colors');
-        $stderr  = $request->getParam('stderr');
-        $strict  = $request->getParam('strict');
-        $verbose = $request->getParam('verbose') || $request->getParam('v');
-        $debug   = $request->getParam('debug');
-        $help    = $request->getParam('help') || $request->getParam('h');
-        $version = $request->getParam('version');
+        $serviceParameters = array();
 
-        $params = array();
-        if ($colors) {
-            $params[] = '--colors';
+        foreach ($this->paramsToTest as $params) {
+            foreach ($params as $param) {
+                if ($result = $request->getParam($param)) {
+                    $serviceParameters[$param] = $result;
+                    continue;
+                }
+            }
         }
-        if ($stderr) {
-            $params[] = '--stderr';
-        }
-        if ($strict) {
-            $params[] = '--strict';
-        }
-        if ($verbose) {
-            $params[] = '--verbose';
-        }
-        if ($debug) {
-            $params[] = '--debug';
-        }
-        if ($help) {
-            $params[] = '--help';
-        }
-        if ($version) {
-            $params[] = '--version';
-        }
-
 
         $runner = $this->runner;
-        $runner->setParams($params);
-        $runner->run();
+        $runner->setParams($serviceParameters);
+        $output = $runner->run();
+
+        $response = $this->getResponse();
+        /* @var $response \Zend\Console\Response */
+        $response->setContent($output);
+        $response->setErrorLevel($runner->getExitCode());
+        return $response;
     }
 
     /**
