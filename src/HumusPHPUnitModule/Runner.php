@@ -72,13 +72,14 @@ class Runner implements RunnerInterface
 
         $dir = getcwd() . '/vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR;
 
-        if (false !== array_search('--version', $this->params)) {
+        if (isset($this->params['version'])) {
             passthru($dir . 'phpunit --version');
             $result .= 'Humus PHPUnit Module ' . Version::VERSION;
             return $result;
         }
 
-        if (false !== array_search('--help', $this->params)) {
+
+        if (isset($this->params['help'])) {
             $console = $this->console;
 
             $usage = $this->usage;

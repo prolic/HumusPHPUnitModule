@@ -65,7 +65,7 @@ class IndexController extends AbstractActionController
         foreach ($this->paramsToTest as $params) {
             foreach ($params as $param) {
                 if ($result = $request->getParam($param)) {
-                    $serviceParameters[$param] = $result;
+                    $serviceParameters[$params[0]] = $result;
                     continue;
                 }
             }
