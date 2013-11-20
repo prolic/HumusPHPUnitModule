@@ -33,8 +33,13 @@ class IndexController extends AbstractActionController
      */
     protected $paramsToTest = array(
         array('modules'),
+        array('stop-on-module-failure'),
         array('colors'),
         array('stderr'),
+        array('stop-on-error'),
+        array('stop-on-failure'),
+        array('stop-on-skipped'),
+        array('stop-on-incomplete'),
         array('strict'),
         array('verbose', 'v'),
         array('debug'),

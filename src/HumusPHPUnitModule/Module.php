@@ -49,12 +49,32 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Lo
                 'Specify modules to test, e.g. --modules=Foo,Bar,Baz will only test these three modules'
             ),
             array(
+                '--stop-on-module-failure',
+                'Stop execution upon first failed module test suite.'
+            ),
+            array(
                 '--colors',
                 'Use colors in output.'
             ),
             array(
                 '--stderr',
                 'Write to STDERR instead of STDOUT.'
+            ),
+            array(
+                '--stop-on-error',
+                'Stop execution upon first error.'
+            ),
+            array(
+                '--stop-on-failure',
+                'Stop execution upon first error or failure.'
+            ),
+            array(
+                '--stop-on-skipped',
+                'Stop execution upon first skipped test.'
+            ),
+            array(
+                '--stop-on-incomplete',
+                'Stop execution upon first incomplete test.'
             ),
             array(
                 '--strict',
