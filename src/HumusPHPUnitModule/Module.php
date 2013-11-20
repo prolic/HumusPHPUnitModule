@@ -69,6 +69,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Lo
                 'Display debugging information during test execution.'
             ),
             array(
+                '--process-isolation',
+                'Run each test in a separate PHP process.'
+            ),
+            array(
                 '--help|-h',
                 'Prints thhe usage information.'
             ),

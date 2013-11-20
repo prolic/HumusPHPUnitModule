@@ -49,6 +49,9 @@ class IndexController extends AbstractActionController
             'debug'
         ),
         array(
+            'process-isolation'
+        ),
+        array(
             'help',
             'h'
         ),
