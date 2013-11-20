@@ -21,6 +21,7 @@ UPDATES IN 1.2.0
    You can start humusphpunit with "php public/index.php humusphpunit"
    The old way of "vendor/bin/humusphpunit" still works
  - Support for passing parameters to phpunit like: "--strict", "--debug", "--version", and so on.
+ - Support for new parameters specific to HumusPHPUnitModule like: "--modules=" and "stop-on-module-failure"
  - Get list of available options with: "php public/index.php" or "php public/index.php humusphpunit --help"
  - Colorized output in console
  - Test coverage
