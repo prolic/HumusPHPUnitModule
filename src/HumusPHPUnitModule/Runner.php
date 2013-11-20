@@ -180,8 +180,12 @@ class Runner implements RunnerInterface
                 passthru($dir . 'phpunit -c ' . $path . ' ' . $params, $returnVar);
                 $result .= ob_get_contents();
                 ob_clean();
-                if ($this->exitCode == 0) {
+                if ($this->exitCode == 0 && $returnVar != 0) {
                     $this->exitCode = $returnVar;
+                    if (isset($this->params['stop-on-module-failure'])) {
+                        $result .= "\nAll done.";
+                        return $result;
+                    }
                 }
             }
 
