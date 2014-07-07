@@ -28,7 +28,7 @@ final class Version
     /**
      * version identification
      */
-    const VERSION = '1.2.0-dev';
+    const VERSION = '1.1.3';
 
     /**
      * The latest stable version available
